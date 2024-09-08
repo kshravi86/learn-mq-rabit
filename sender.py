@@ -40,3 +40,6 @@ try:
 except pika.exceptions.ConnectionClosed as e:
     # Handle connection closing errors
     print(f"Error closing connection: {e}")
+if __name__ == "__main__":
+    # Send a message to the queue
+    send_message("Hello, RabbitMQ!")
