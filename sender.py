@@ -1,9 +1,17 @@
 import pika
 
-connection = pika.BlockingConnection(pika.ConnectionParameters('localhost'))
+try:
+    connection = pika.BlockingConnection(pika.ConnectionParameters('localhost'))
+except pika.exceptions.AMQPConnectionError as e:
+    print(f"Error connecting to RabbitMQ: {e}")
+    exit(1)
 channel = connection.channel()
 
-channel.queue_declare(queue='hello')
+try:
+    channel.queue_declare(queue='hello')
+except pika.exceptions.ChannelClosed as e:
+    print(f"Error declaring queue: {e}")
+    exit(1)
 
 def send_message(message):
     """
@@ -16,5 +24,5 @@ def send_message(message):
 
 try:
     connection.close()
-finally:
-    pass
+except pika.exceptions.ConnectionClosed as e:
+    print(f"Error closing connection: {e}")
