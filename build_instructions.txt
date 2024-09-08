@@ -1,0 +1,5 @@
+To build the Docker image, follow these steps:
+
+1. Open a terminal or command prompt in the directory where the Dockerfile is located.
+2. Run the command `docker build -t my-rabbitmq .` to build the Docker image.
+3. Once the build is complete, you can run the Docker image using the command `docker run -p 5672:5672 my-rabbitmq`.
